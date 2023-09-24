@@ -90,3 +90,7 @@ td {
 .description_val {
   text-transform: capitalize;
 }
+
+.footer-link {
+  text-align: center;
+}
