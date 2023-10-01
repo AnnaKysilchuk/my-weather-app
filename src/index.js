@@ -2,56 +2,54 @@
 
 /* Date changing*/
 
-let currentDateInfo = document.querySelector(".weather-info_date");
-let date = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+function getDateInfo(dt) {
+  let date = new Date(dt);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-currentDateInfo.innerHTML = `${days[date.getDay()]}, ${date.getDate()} ${
-  months[date.getMonth()]
-}`;
+  return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}`;
+}
 
 /* Time changing*/
 
-let currentTimeInfo = document.querySelector(".weather-info_time");
+function getTimeInfo(dt) {
+  let date = new Date(dt);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
 
-currentTimeInfo.innerHTML = `${date.getHours()}:${date.getMinutes()}`;
+  hours < 10 ? (hours = `0${hours}`) : hours;
+  minutes < 10 ? (minutes = `0${hours}`) : minutes;
+
+  return `${hours}:${minutes}`;
+}
 
 //---------------- HW-5 ----------------------
 
 let inputForm = document.querySelector("#form-search");
 let currentBtn = document.querySelector("#btn-current");
-let cityName = document.querySelector(".city-name");
-let countryName = document.querySelector(".weather-info_country");
-let temperature = document.querySelector(".temperature-current");
 let temperatureC = document.querySelector(".temperature-c");
 let temperatureF = document.querySelector(".temperature-f");
-let temperatureDay = document.querySelector(".temperature-day");
-let temperatureNight = document.querySelector(".temperature-night");
-let description = document.querySelector(".description_val");
-let wind = document.querySelector(".wind_val");
-let humidity = document.querySelector(".humidity_val");
 let numberOfClickF = 0;
 let numberOfClickC = 2;
 
@@ -67,6 +65,17 @@ function currentPosition(position) {
 }
 
 function getWeatherInfo(response) {
+  let cityName = document.querySelector(".city-name");
+  let countryName = document.querySelector(".weather-info_country");
+  let temperature = document.querySelector(".temperature-current");
+  let temperatureDay = document.querySelector(".temperature-day");
+  let temperatureNight = document.querySelector(".temperature-night");
+  let description = document.querySelector(".description_val");
+  let wind = document.querySelector(".wind_val");
+  let humidity = document.querySelector(".humidity_val");
+  let currentDateInfo = document.querySelector(".weather-info_date");
+  let currentTimeInfo = document.querySelector(".weather-info_time");
+
   cityName.innerHTML = `${response.data.name}`;
   countryName.innerHTML = `${response.data.sys.country}`;
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
@@ -85,6 +94,9 @@ function getWeatherInfo(response) {
     : (temperatureNight.innerHTML = `${Math.round(
         response.data.main.temp_min
       )}`);
+
+  currentDateInfo.innerHTML = getDateInfo(response.data.dt * 1000);
+  currentTimeInfo.innerHTML = getTimeInfo(response.data.dt * 1000);
 }
 
 function inputFormSubmit(event) {
