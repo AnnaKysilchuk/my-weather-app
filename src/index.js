@@ -1,5 +1,3 @@
-//---------------- HW-4 ----------------------
-
 /* Date changing*/
 
 function getDateInfo(dt) {
@@ -44,24 +42,28 @@ function getTimeInfo(dt) {
   return `${hours}:${minutes}`;
 }
 
-//---------------- HW-5 ----------------------
+/* Weather Info changing*/
 
 let inputForm = document.querySelector("#form-search");
 let currentBtn = document.querySelector("#btn-current");
+let weatherInfo = document.querySelector(".weather-info");
+let temperature = document.querySelector(".temperature-current");
 let temperatureC = document.querySelector(".temperature-c");
 let temperatureF = document.querySelector(".temperature-f");
+let tempCelsius = null;
 let numberOfClickF = 0;
 let numberOfClickC = 2;
 
 let apiKey = "e34d0t2732c4955489449b41af8fo3a4";
 // let apiKey = "ebef9ca4a8de66ed586fac628fade056";
-let apiUrl = `https://api.shecodes.io/weather/v1/current?&key=${apiKey}`;
+let apiUrlBase = `https://api.shecodes.io/weather/v1/current?&key=${apiKey}`;
+
 // let apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${apiKey}`;
 
 function currentPosition(position) {
   let currentLat = position.coords.latitude;
   let currentLong = position.coords.longitude;
-  apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${currentLong}&lat=${currentLat}&key=${apiKey}`;
+  apiUrl = `${apiUrlBase}&lon=${currentLong}&lat=${currentLat}`;
   // apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${apiKey}&lat=${currentLat}&lon=${currentLong}`;
 
   axios.get(apiUrl).then(getWeatherInfo);
@@ -70,10 +72,8 @@ function currentPosition(position) {
 function getWeatherInfo(response) {
   let cityName = document.querySelector(".city-name");
   let countryName = document.querySelector(".weather-info_country");
-  let temperature = document.querySelector(".temperature-current");
+
   let temperatureFeeling = document.querySelector(".temperature");
-  // let temperatureDay = document.querySelector(".temperature-day");
-  // let temperatureNight = document.querySelector(".temperature-night");
   let description = document.querySelector(".description_val");
   let wind = document.querySelector(".wind_val");
   let humidity = document.querySelector(".humidity_val");
@@ -85,7 +85,9 @@ function getWeatherInfo(response) {
   // cityName.innerHTML = `${response.data.name}`;
   countryName.innerHTML = `${response.data.country}`;
   // countryName.innerHTML = `${response.data.sys.country}`;
-  temperature.innerHTML = `${Math.round(response.data.temperature.current)}`;
+
+  tempCelsius = response.data.temperature.current;
+  temperature.innerHTML = `${Math.round(tempCelsius)}`;
   // temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
   description.innerHTML = `${response.data.condition.description}`;
   // description.innerHTML = `${response.data.weather[0].description}`;
@@ -93,25 +95,6 @@ function getWeatherInfo(response) {
   // wind.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   humidity.innerHTML = `${Math.round(response.data.temperature.humidity)}%`;
   // humidity.innerHTML = `${Math.round(response.data.main.humidity)}%`;
-  response.data.temperature.feels_like > 0
-    ? (temperatureFeeling.innerHTML = `Fells like +${Math.round(
-        response.data.temperature.feels_like
-      )}°`)
-    : (temperatureFeeling.innerHTML = `Fells like: ${Math.round(
-        response.data.temperature.feels_like
-      )}°`);
-
-  // response.data.main.temp_max > 0
-  //   ? (temperatureDay.innerHTML = `+${Math.round(response.data.main.temp_max)}`)
-  //   : (temperatureDay.innerHTML = `${Math.round(response.data.main.temp_max)}`);
-
-  // response.data.main.temp_min > 0
-  //   ? (temperatureNight.innerHTML = `+${Math.round(
-  //       response.data.main.temp_min
-  //     )}`)
-  //   : (temperatureNight.innerHTML = `${Math.round(
-  //       response.data.main.temp_min
-  //     )}`);
 
   currentDateInfo.innerHTML = getDateInfo(response.data.time * 1000);
   // currentDateInfo.innerHTML = getDateInfo(response.data.dt * 1000);
@@ -130,12 +113,15 @@ function inputFormSubmit(event) {
   event.preventDefault();
 
   let city = document.querySelector(".form-control");
-  let newCityToSeatch = city.value[0].toUpperCase();
+  let newCityToSeatch = city.value[0].toLowerCase();
   for (let i = 1; i < city.value.length; i++) {
     newCityToSeatch += city.value[i].toLowerCase();
   }
-  apiUrl = `https://api.shecodes.io/weather/v1/current?query=${newCityToSeatch}&key=${apiKey}`;
+  apiUrl = `${apiUrlBase}&query=${newCityToSeatch}`;
+
   // apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${apiKey}&q=${newCityToSeatch}`;
+
+  axios.get(apiUrl).then(getWeatherInfo);
 
   city.value = "";
 }
@@ -150,47 +136,18 @@ currentBtn.addEventListener("click", getCurrentLocation);
 
 /* Units changing*/
 
-// function onTemperatureFClick() {
-//   numberOfClickF += 1;
-//   numberOfClickC = 0;
-//   if (numberOfClickF > 1) {
-//     return;
-//   }
+function onTemperatureFClick() {
+  temperatureF.classList.add("active");
+  temperatureC.classList.remove("active");
+  let tempFahrenheit = Math.round(tempCelsius * 1.8 + 32);
+  temperature.innerHTML = `${tempFahrenheit}`;
+}
 
-//   let currentValue = Number(temperature.textContent);
-//   let currentValueNew = Math.round(currentValue * 1.8 + 32);
+function onTemperatureCClick() {
+  temperatureC.classList.add("active");
+  temperatureF.classList.remove("active");
+  temperature.innerHTML = `${Math.round(tempCelsius)}`;
+}
 
-//   let currentDayValue = Number(temperatureDay.textContent);
-//   let currentDayValueNew = Math.round(currentDayValue * 1.8 + 32);
-
-//   let currentNightValue = Number(temperatureNight.textContent);
-//   let currentNightValueNew = Math.round(currentNightValue * 1.8 + 32);
-
-//   temperature.innerHTML = `${currentValueNew}`;
-//   temperatureDay.innerHTML = `${currentDayValueNew}`;
-//   temperatureNight.innerHTML = `${currentNightValueNew}`;
-// }
-
-// function onTemperatureCClick() {
-//   numberOfClickF = 0;
-//   numberOfClickC += 1;
-//   if (numberOfClickC > 1) {
-//     return;
-//   }
-
-//   let currentValue = Number(temperature.textContent);
-//   let currentValueNew = Math.round((currentValue - 32) / 1.8);
-
-//   let currentDayValue = Number(temperatureDay.textContent);
-//   let currentDayValueNew = Math.round((currentDayValue - 32) / 1.8);
-
-//   let currentNightValue = Number(temperatureNight.textContent);
-//   let currentNightValueNew = Math.round((currentNightValue - 32) / 1.8);
-
-//   temperature.innerHTML = `${currentValueNew}`;
-//   temperatureDay.innerHTML = `${currentDayValueNew}`;
-//   temperatureNight.innerHTML = `${currentNightValueNew}`;
-// }
-
-// temperatureF.addEventListener("click", onTemperatureFClick);
-// temperatureC.addEventListener("click", onTemperatureCClick);
+temperatureF.addEventListener("click", onTemperatureFClick);
+temperatureC.addEventListener("click", onTemperatureCClick);

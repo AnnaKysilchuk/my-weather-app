@@ -43,7 +43,7 @@ button {
 .temperature-c,
 .temperature-f,
 .temperature-dush {
-  font-size: calc(1.375rem + 1vw);
+  font-size: calc(1.375rem + 0.9vw);
   color: #003177;
   font-weight: 500;
   transition: all 100ms ease-in-out;
@@ -52,14 +52,12 @@ button {
 .temperature-c:hover,
 .temperature-f:hover {
   font-size: calc(1.375rem + 1.1vw);
-  text-decoration: underline;
+  color: #00a000;
 }
 
-.temperature {
-  font-size: calc(1.375rem + 0.8vw);
-  color: rgba(0, 49, 119, 0.7);
-  font-style: italic;
-  font-weight: 600;
+.active {
+  font-size: calc(1.375rem + 1.1vw);
+  text-decoration: underline;
 }
 
 .weather-info_city {
