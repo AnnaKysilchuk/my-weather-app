@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
-    <link rel="stylesheet" href="src/styles.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,6 +11,7 @@
       crossorigin="anonymous"
     />
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/styles.css" />
   </head>
   <body>
     <div class="container mt-5">
@@ -39,32 +39,20 @@
           </div>
           <div class="col">
             <div class="text-center">
-              <h1 class="p-2 lh-1 temperature-main">
-                <span
-                  >+
-                  <span class="temperature-current">29</span>
-                  °</span
-                >
-                <span class="temperature-c">C</span
-                ><span class="temperature-dush"> | </span
-                ><span class="temperature-f">F</span>
+              <h1
+                class="p-2 lh-1 temperature-main d-flex justify-content-center"
+              >
+                <span class="temperature-current">29</span>
+                <div class="units">
+                  <span class="temperature-c">°C</span
+                  ><span class="temperature-dush"> | </span
+                  ><span class="temperature-f">°F</span>
+                </div>
               </h1>
             </div>
-            <h2 class="d-flex justify-content-center">
-              <div class="p-2 lh-1 temperature">
-                <span
-                  >+
-                  <span class="temperature-day">31</span>
-                  °</span
-                >
-              </div>
-              <div class="p-2 lh-1 temperature">
-                <span
-                  >+
-                  <span class="temperature-night">19</span>
-                  °</span
-                >
-              </div>
+            <h2 class="d-flex justify-content-around">
+              <div class="p-2 lh-1 temperature temperature-day">31</div>
+              <div class="p-2 lh-1 temperature temperature-night">19</div>
             </h2>
             <h3 class="lh-1 weather-info_city">
               <span class="city-name">Kyiv</span>

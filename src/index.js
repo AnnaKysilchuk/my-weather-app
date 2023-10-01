@@ -70,11 +70,21 @@ function getWeatherInfo(response) {
   cityName.innerHTML = `${response.data.name}`;
   countryName.innerHTML = `${response.data.sys.country}`;
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
-  temperatureDay.innerHTML = `${Math.round(response.data.main.temp_max)}`;
-  temperatureNight.innerHTML = `${Math.round(response.data.main.temp_min)}`;
   description.innerHTML = `${response.data.weather[0].description}`;
   wind.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   humidity.innerHTML = `${Math.round(response.data.main.humidity)}%`;
+
+  response.data.main.temp_max > 0
+    ? (temperatureDay.innerHTML = `+${Math.round(response.data.main.temp_max)}`)
+    : (temperatureDay.innerHTML = `${Math.round(response.data.main.temp_max)}`);
+
+  response.data.main.temp_min > 0
+    ? (temperatureNight.innerHTML = `+${Math.round(
+        response.data.main.temp_min
+      )}`)
+    : (temperatureNight.innerHTML = `${Math.round(
+        response.data.main.temp_min
+      )}`);
 }
 
 function inputFormSubmit(event) {

@@ -26,15 +26,20 @@ button {
 }
 
 .temperature-main {
-  font-size: calc(1.375rem + 5vw) !important;
+  font-size: calc(4rem + 4vw);
   color: #003177;
   font-weight: 700;
+}
+
+.units {
+  position: relative;
+  top: calc(-1.7rem - 2.5vw);
 }
 
 .temperature-c,
 .temperature-f,
 .temperature-dush {
-  font-size: calc(1.375rem + 0.9vw) !important;
+  font-size: calc(1.375rem + 1vw);
   color: #003177;
   font-weight: 500;
   transition: all 100ms ease-in-out;
@@ -42,34 +47,34 @@ button {
 
 .temperature-c:hover,
 .temperature-f:hover {
-  font-size: calc(1.375rem + 1.1vw) !important;
+  font-size: calc(1.375rem + 1.1vw);
   text-decoration: underline;
 }
 
 .temperature {
-  font-size: calc(1.375rem + 0.8vw) !important;
+  font-size: calc(1.375rem + 0.8vw);
   color: rgba(0, 49, 119, 0.7);
   font-weight: 700;
 }
 
 .weather-info_city {
-  font-size: calc(1.375rem + 3vw) !important;
+  font-size: calc(1.375rem + 3vw);
   font-weight: 700;
 }
 .weather-info_country {
-  font-size: calc(1.375rem + 0.5vw) !important;
+  font-size: calc(1.375rem + 0.5vw);
   font-weight: 300;
   font-style: italic;
 }
 
 .weather-info_date {
-  font-size: calc(1rem + 0.7vw) !important;
+  font-size: calc(1rem + 0.7vw);
   font-weight: 500;
   font-style: italic;
   color: #7f7f7f;
 }
 .weather-info_time {
-  font-size: calc(1rem + 0.3vw) !important;
+  font-size: calc(1rem + 0.3vw);
   font-weight: 500;
   color: #7f7f7f;
 }
@@ -80,7 +85,7 @@ td {
 }
 
 .weather-week {
-  font-size: calc(1rem + 1vw) !important;
+  font-size: calc(1rem + 1vw);
 }
 
 .day-name {
