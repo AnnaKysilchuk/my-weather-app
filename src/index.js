@@ -1,7 +1,7 @@
 /* Date changing*/
 
 function getDateInfo(dt) {
-  let date = new Date(dt);
+  let date = new Date(dt * 1000);
   let days = [
     "Sunday",
     "Monday",
@@ -46,7 +46,7 @@ function getForecastDay(dt) {
 /* Time changing*/
 
 function getTimeInfo(dt) {
-  let date = new Date(dt);
+  let date = new Date(dt * 1000);
   let hours = date.getHours();
   let minutes = date.getMinutes();
 
@@ -60,7 +60,6 @@ function getTimeInfo(dt) {
 
 let inputForm = document.querySelector("#form-search");
 let currentBtn = document.querySelector("#btn-current");
-let weatherInfo = document.querySelector(".weather-info");
 
 let apiKey = "e34d0t2732c4955489449b41af8fo3a4";
 let apiUrlBase = `https://api.shecodes.io/weather/v1/current?key=${apiKey}`;
@@ -93,10 +92,12 @@ function getWeatherInfo(response) {
   description.innerHTML = `${response.data.condition.description}`;
   wind.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   humidity.innerHTML = `${Math.round(response.data.temperature.humidity)}%`;
-  currentDateInfo.innerHTML = getDateInfo(response.data.time * 1000);
-  currentTimeInfo.innerHTML = getTimeInfo(response.data.time * 1000);
+  currentDateInfo.innerHTML = getDateInfo(response.data.time);
+  currentTimeInfo.innerHTML = getTimeInfo(response.data.time);
   weatherIcon.setAttribute("src", `images/${response.data.condition.icon}.svg`);
   weatherIcon.setAttribute("alt", `${response.data.condition.icon}`);
+
+  refreshEveningTimeTheme(getTimeInfo(response.data.time));
 }
 
 function getForecastWeatherInfo(response) {
@@ -108,25 +109,46 @@ function getForecastWeatherInfo(response) {
     if (index > 0) {
       weatherWeekHTML += `<div class="row">
       <div class="col-4 d-flex align-items-center day-name">
-        ${getForecastDay(item.time)}
+      ${getForecastDay(item.time)}
       </div>
       <div class="col-2">
-        <img src="images/${item.condition.icon}.svg" alt="${
+      <img src="images/${item.condition.icon}.svg" alt="${
         item.condition.icon
       }" />
       </div>
-      <div class="col d-flex align-items-center justify-content-center temp-day">
-        ${Math.round(item.temperature.maximum)}°
+      <div class="col d-flex align-items-center justify-content-end temp-day">
+      ${Math.round(item.temperature.maximum)}°
       </div>
-      <div class="col d-flex align-items-center">${Math.round(
+      <div class="col d-flex align-items-center justify-content-center temp-night">${Math.round(
         item.temperature.minimum
       )}°
-      </div>
-    </div>`;
+        </div>
+        </div>`;
     }
   });
 
   weatherWeek.innerHTML = weatherWeekHTML;
+}
+
+function refreshEveningTimeTheme(time) {
+  if (parseInt(time.slice(0, 2)) >= 19) {
+    let bodyEl = document.querySelector("body");
+    let tableEl = document.querySelector(".table");
+    let tdEl = document.querySelectorAll("td");
+    let thEl = document.querySelectorAll("th");
+    let h1El = document.querySelector("h1");
+
+    bodyEl.classList.add("nigth");
+    tableEl.classList.add("table-nigth");
+    h1El.classList.add("temperature-main-nigth");
+
+    tdEl.forEach(function (td) {
+      td.classList.add("td-nigth");
+    });
+    thEl.forEach(function (th) {
+      th.classList.add("th-nigth");
+    });
+  }
 }
 
 function inputFormSubmit(event) {

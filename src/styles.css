@@ -1,9 +1,28 @@
+.nigth {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(5, 5, 114, 1) 47%,
+    rgba(140, 112, 255, 1) 100%
+  );
+  color: #f0f8ff;
+}
+
 input {
   width: 75%;
 }
 
 button {
   width: 25%;
+}
+
+.form-control {
+  background: transparent;
+}
+
+.form-control::placeholder {
+  color: #7f7f7f;
 }
 
 #form-search :not(:last-child) {
@@ -35,24 +54,19 @@ button {
   font-weight: 700;
 }
 
+.temperature-main-nigth {
+  color: #f0f8ff !important;
+}
+
 .units {
   position: relative;
   top: calc(-1.7rem - 2.5vw);
 }
 
-.temperature-c,
-.temperature-f,
-.temperature-dush {
+.temperature-c {
   font-size: calc(1.375rem + 0.9vw);
-  color: #003177;
   font-weight: 500;
   transition: all 100ms ease-in-out;
-}
-
-.temperature-c:hover,
-.temperature-f:hover {
-  font-size: calc(1.375rem + 1.1vw);
-  color: #00a000;
 }
 
 .weather-info_city {
@@ -82,9 +96,19 @@ button {
   color: #7f7f7f;
 }
 
+.table-nigth {
+  background: transparent !important;
+}
+
+.td-nigth,
+.th-nigth {
+  color: #e2e2e2 !important;
+}
+
 th,
 td {
   width: calc(100% / 3);
+  background: transparent !important;
 }
 
 .weather-week {
@@ -97,6 +121,15 @@ td {
 
 .description_val {
   text-transform: capitalize;
+}
+
+.temp-day {
+  font-size: calc(1rem + 1.3vw);
+  font-weight: 700;
+}
+
+.temp-night {
+  font-size: calc(1rem + 0.9vw);
 }
 
 .footer-link {
