@@ -55,11 +55,6 @@ button {
   color: #00a000;
 }
 
-.active {
-  font-size: calc(1.375rem + 1.1vw);
-  text-decoration: underline;
-}
-
 .weather-info_city {
   font-size: calc(1.375rem + 3vw);
   font-weight: 700;
