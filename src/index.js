@@ -101,7 +101,9 @@ function getWeatherInfo(response) {
   currentTimeInfo.innerHTML = getTimeInfo(response.data.time * 1000);
   // currentTimeInfo.innerHTML = getTimeInfo(response.data.dt * 1000);
 
-  weatherIcon.setAttribute("src", `${response.data.condition.icon_url}`);
+  console.log(response.data);
+
+  weatherIcon.setAttribute("src", `images/${response.data.condition.icon}.svg`);
   weatherIcon.setAttribute("alt", `${response.data.condition.icon}`);
   // weatherIcon.setAttribute(
   //   "src",
